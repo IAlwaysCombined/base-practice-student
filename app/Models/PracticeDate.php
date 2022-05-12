@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PracticeDate extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'start_date',
+        'end_date'
+    ];
+
 }

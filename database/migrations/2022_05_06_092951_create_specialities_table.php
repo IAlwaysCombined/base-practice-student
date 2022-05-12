@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('specialities', function (Blueprint $table) {
             $table->id();
-            $table->string('speciality', ['09.02,01', '09.02.06', '09.02.07', '10.02.03', '10.02.05', '40.02.01', '']);
+            $table->enum('speciality', ['09.02,01', '09.02.06', '09.02.07', '10.02.03', '10.02.05', '40.02.01']);
             $table->timestamps();
         });
     }

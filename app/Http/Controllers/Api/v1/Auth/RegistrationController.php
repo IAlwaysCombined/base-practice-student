@@ -5,18 +5,12 @@ namespace App\Http\Controllers\Api\v1\Auth;
 use App\Helpers\ApiHelper;
 use App\Http\Controllers\Api\v1\BaseController;
 use App\Models\User;
-use App\Notifications\SendCodePhoneNotification;
 use Exception;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class RegistrationController extends BaseController
 {

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->boolean('is_check');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('practice_id')->constrained();
-            $table->foreignId('organization_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('practice_id')->constrained()->onDelete('cascade');
+            $table->foreignId('organization_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

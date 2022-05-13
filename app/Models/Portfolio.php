@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Portfolio extends Model
 {
@@ -16,5 +17,13 @@ class Portfolio extends Model
         'url',
         'user_id'
     ];
+
+    /**
+     * Return the user's photo in portfolio
+     */
+    public function photo(): BelongsToMany
+    {
+        return $this->belongsToMany(Photo::class);
+    }
 
 }

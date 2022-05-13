@@ -9,6 +9,8 @@ class PhotoPortfolio extends Model
 {
     use HasFactory;
 
+    protected $table = 'photo_portfolio';
+
     protected $fillable = [
         'portfolio_id',
         'photo_id'

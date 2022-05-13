@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('photo_portfolios', function (Blueprint $table) {
-            $table->foreignId('portfolio_id')->constrained('portfolios');
-            $table->foreignId('photo_id')->constrained('photos');
-            $table->timestamps();
+        Schema::table('photos', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photo_portfolios');
+        Schema::table('photos', function (Blueprint $table) {
+
+        });
     }
 };

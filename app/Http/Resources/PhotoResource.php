@@ -8,20 +8,23 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class PhotoResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @return array
      */
     #[ArrayShape([
-        'id' => "string",
-        'url' => "string"
+        'id'  => "string",
+        'url' => "string",
     ])] public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'url' => $this->url
+            'id'  => $this->id,
+            'url' => $this->url,
         ];
     }
+
 }

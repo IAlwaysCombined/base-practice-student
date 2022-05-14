@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('photo_portfolio', function (Blueprint $table) {
-            $table->foreignId('portfolio_id')->constrained('portfolios')->onDelete('cascade');
-            $table->foreignId('photo_id')->constrained('photos')->onDelete('cascade');
+            $table->foreignId('portfolio_id')->constrained('portfolios')
+                ->onDelete('cascade');
+            $table->foreignId('photo_id')->constrained('photos')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,4 +31,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('photo_portfolio');
     }
+
 };

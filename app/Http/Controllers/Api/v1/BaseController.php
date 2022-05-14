@@ -25,18 +25,18 @@ class BaseController extends Controller
      * success auth method.
      *
      * @param $token
-     * @param $refreshToken
+     * @param $userRole
      * @param $userId
      * @param $message
      *
      * @return JsonResponse
      */
-    public function sendAuth($token, $refreshToken, $userId, $message): JsonResponse
+    public function sendAuth($token, $userRole, $userId, $message): JsonResponse
     {
         return response()->json([
             'success'      => true,
             'token'        => $token,
-            'refreshToken' => $refreshToken,
+            'userRole'     => $userRole,
             'userId'       => $userId,
             'message'      => $message,
         ]);

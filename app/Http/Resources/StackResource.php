@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JetBrains\PhpStorm\ArrayShape;
 
-class PhotoPortfolioResource extends JsonResource
+class StackResource extends JsonResource
 {
 
     /**
@@ -17,13 +17,17 @@ class PhotoPortfolioResource extends JsonResource
      * @return array
      */
     #[ArrayShape([
-        'id'  => "int",
-        'url' => "string",
-    ])] public function toArray($request): array
+        'id'    => "mixed",
+        'name'  => "mixed",
+        'url'   => "mixed",
+        'photo' => "mixed",
+    ])] public function toArray($request)
     {
         return [
-            'id'  => $this->id,
-            'url' => $this->url,
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'url'   => $this->url,
+            'photo' => $this->photo,
         ];
     }
 

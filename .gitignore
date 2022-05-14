@@ -13,3 +13,5 @@ yarn-error.log
 /.idea
 /.vscode
 /public/images
+.phpstorm.meta.php
+_ide_helper.php

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->string('url');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

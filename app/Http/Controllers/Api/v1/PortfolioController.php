@@ -17,19 +17,27 @@ use Illuminate\Support\Facades\File;
 
 class PortfolioController extends BaseController
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @param int $user
+     * @param  int  $user
+     *
      * @return JsonResponse
      */
     public function index(int $user = 0): JsonResponse
     {
         try {
+            $portfolioCurrentUser = Portfolio::query()->where('user_id',
+                User::getUserId())->get();
+            $portfolioUserById    = Portfolio::query()->where('user_id', $user)
+                ->get();
             if ($user == 0) {
-                return $this->sendResponse(PortfolioResource::collection(Portfolio::query()->where('user_id', User::getUserId())->get()), 'Portfolio returned.');
+                return $this->sendResponse(PortfolioResource::collection($portfolioCurrentUser),
+                    'Portfolio returned.');
             } else {
-                return $this->sendResponse(PortfolioResource::collection(Portfolio::query()->where('user_id', $user)->get()), 'Portfolio returned.');
+                return $this->sendResponse(PortfolioResource::collection($portfolioUserById),
+                    'Portfolio returned.');
             }
         } catch (\Exception $e) {
             return ApiHelper::sendError($e);
@@ -39,23 +47,25 @@ class PortfolioController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
         try {
-            $portfolio = new Portfolio();
-            $portfolio->user_id = User::getUserId();
-            $portfolio->name = $request->name;
+            $portfolio              = new Portfolio();
+            $portfolio->user_id     = User::getUserId();
+            $portfolio->name        = $request->name;
             $portfolio->description = $request->description;
-            $portfolio->url = $request->url;
-            $result = $portfolio->save();
+            $portfolio->url         = $request->url;
+            $result                 = $portfolio->save();
             if ($result) {
-                return $this->sendResponse(new PortfolioResource($portfolio), 'Portfolio created.');
-            } else {
-                return ApiHelper::sendError('Portfolio not created.');
+                return $this->sendResponse(new PortfolioResource($portfolio),
+                    'Portfolio created.');
             }
+
+            return ApiHelper::sendError('Portfolio not created.');
         } catch (\Exception $e) {
             return ApiHelper::sendError($e);
         }
@@ -64,20 +74,24 @@ class PortfolioController extends BaseController
     /**
      * Store a newly created photo resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
+     *
      * @return JsonResponse
      */
     public function storePhoto(Request $request, int $id): JsonResponse
     {
         try {
-            $photo = Photo::createPhoto($request,"portfolio/{$id}");
-            $photoPortfolio = new PhotoPortfolio();
+            $photo                        = Photo::createPhoto($request,
+                "portfolio/{$id}");
+            $photoPortfolio               = new PhotoPortfolio();
             $photoPortfolio->portfolio_id = $id;
-            $photoPortfolio->photo_id = $photo->id;
+            $photoPortfolio->photo_id     = $photo->id;
             $photoPortfolio->save();
-            return $this->sendResponse(new PhotoResource($photo), 'Photo added to portfolio.');
-        }catch (\Exception $e){
+
+            return $this->sendResponse(new PhotoResource($photo),
+                'Photo added to portfolio.');
+        } catch (\Exception $e) {
             return ApiHelper::sendError($e);
         }
     }
@@ -85,19 +99,22 @@ class PortfolioController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
+     *
      * @return JsonResponse
      */
     public function update(Request $request, int $id): JsonResponse
     {
         try {
-            $portfolio = Portfolio::query()->find($id);
-            $portfolio->name = $request->name;
+            $portfolio              = Portfolio::query()->find($id);
+            $portfolio->name        = $request->name;
             $portfolio->description = $request->description;
-            $portfolio->url = $request->url;
+            $portfolio->url         = $request->url;
             $portfolio->update();
-            return $this->sendResponse(new PortfolioResource($portfolio), 'Portfolio updated.');
+
+            return $this->sendResponse(new PortfolioResource($portfolio),
+                'Portfolio updated.');
         } catch (\Exception $e) {
             return ApiHelper::sendError($e);
         }
@@ -108,29 +125,32 @@ class PortfolioController extends BaseController
      *
      * @param $id_portfolio
      * @param $id_photo
+     *
      * @return JsonResponse
      */
     public function deletePhoto($id_portfolio, $id_photo): JsonResponse
     {
         $portfolio = Portfolio::query()->find($id_portfolio);
-        if ($portfolio->user_id == User::getUserId()){
+        if ($portfolio->user_id == User::getUserId()) {
             $image = $portfolio->photo->find($id_photo);
             File::delete(public_path($image->url));
             $result = $image->delete();
             if ($result) {
-                return $this->sendResponse($result, 'Image deleted successfully.');
-            } else {
-                return ApiHelper::sendError('Portfolio image not deleted.');
+                return $this->sendResponse($result,
+                    'Image deleted successfully.');
             }
-        }else{
-            return ApiHelper::sendError('Portfolio not found.');
+
+            return ApiHelper::sendError('Portfolio image not deleted.');
         }
+
+        return ApiHelper::sendError('Portfolio not found.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
+     *
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
@@ -141,14 +161,15 @@ class PortfolioController extends BaseController
                 $result = $portfolio->delete();
                 if ($result) {
                     return $this->sendResponse([], 'Portfolio deleted.');
-                } else {
-                    return ApiHelper::sendError('Portfolio not deleted.');
                 }
-            } else {
-                return ApiHelper::sendError('Portfolio not found.');
+
+                return ApiHelper::sendError('Portfolio not deleted.');
             }
+
+            return ApiHelper::sendError('Portfolio not found.');
         } catch (\Exception $e) {
             return ApiHelper::sendError($e);
         }
     }
+
 }

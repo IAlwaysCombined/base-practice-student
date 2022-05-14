@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('photos', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->enum('role', ['student', 'employee_company', 'employee_education', 'admin', 'company']);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('photos', function (Blueprint $table) {
-
-        });
+        Schema::dropIfExists('roles');
     }
 };

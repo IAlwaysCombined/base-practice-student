@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class RegistrationController extends BaseController
 {
 
-    public function registerWithEmail(Request $request): ?JsonResponse
+    public function registerStudent(Request $request): ?JsonResponse
     {
         return $this->registerUser($request, true);
     }
@@ -36,6 +36,8 @@ class RegistrationController extends BaseController
                 'name'              => 'required',
                 'surname'           => 'required',
                 'password'          => 'required',
+                'speciality_id'     => 'required',
+                'course'            => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -48,6 +50,9 @@ class RegistrationController extends BaseController
                 'name'               => $request->get('name'),
                 'surname'            => $request->get('surname'),
                 'password'           => bcrypt($request['password']),
+                'role_id'            => 1,
+                'speciality_id'      => $request->get('speciality_id'),
+                'course'             => $request->get('course'),
             ]);
 
             if ($isForEmail) {
@@ -58,7 +63,7 @@ class RegistrationController extends BaseController
 
             return $this->sendAuth(
                 $user->createToken('Auth Token')->accessToken,
-                "",
+                $user->role_id,
                 $user->id,
                 "User registration with {$registerMethodName} successfully.");
         } catch (Exception $e) {

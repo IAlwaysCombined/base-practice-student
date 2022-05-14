@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_practices', function (Blueprint $table) {
-            $table->foreignId('courses_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreignId('practices_id')->references('id')->on('practices')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('surname')->nullable()->change();
+            $table->integer('course')->nullable()->change();
         });
     }
 
@@ -27,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_practices');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('surname')->change();
+            $table->integer('course')->change();
+        });
     }
 };

@@ -16,35 +16,44 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends BaseController
 {
+
     public function login(Request $request): JsonResponse
     {
         try {
             $user = User::where('email', $request->get('email'))
                 ->firstOrFail();
 
-            if (!$user || !Hash::check($request->password, $user->password)) {
+            if ( ! $user
+                || ! Hash::check($request->password, $user->password)
+            ) {
                 throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect']
+                    'email' => ['The provided credentials are incorrect'],
                 ]);
             }
             $user->save();
 
-            return $this->sendAuth($user->createToken('Auth Token')->accessToken, "", $user->id, 'User login successfully.');
+            return $this->sendAuth(
+                $user->createToken('Auth Token')->accessToken,
+                $user->role_id,
+                $user->id,
+                'User login successfully.');
         } catch (Exception $e) {
             return ApiHelper::sendError($e);
         }
     }
 
-    public function logout(Request $request): Response|JsonResponse|Application|ResponseFactory
-    {
+    public function logout(Request $request
+    ): Response|JsonResponse|Application|ResponseFactory {
         try {
             $token = $request->user()
                 ->token();
             $token->revoke();
             $response = ['message' => 'You have been successfully logged out!'];
+
             return response($response, 200);
         } catch (Exception $e) {
             return ApiHelper::sendError($e);
         }
     }
+
 }

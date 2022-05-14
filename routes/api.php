@@ -48,6 +48,7 @@ Route::middleware(['auth:api'])->group(function () {
             Route::get('/all/{id}', [StackController::class, 'index']);
             Route::post('/create', [StackController::class, 'store']);
             Route::patch('/update/{id}', [StackController::class, 'update']);
+            Route::delete('/delete/{id}', [StackController::class, 'destroy']);
         });
 
         Route::group(['prefix' => '/search'], static function () {

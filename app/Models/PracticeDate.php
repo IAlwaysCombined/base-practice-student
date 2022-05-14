@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\PracticeDate
  *
- * @property int                             $id
- * @property string                          $start_date
- * @property string                          $end_date
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int         $id
+ * @property string      $start_date
+ * @property string      $end_date
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|PracticeDate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PracticeDate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PracticeDate query()

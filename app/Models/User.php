@@ -3,40 +3,46 @@
 namespace App\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Laravel\Passport\Client;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\Token;
 
 /**
  * App\Models\User
  *
- * @property int                                                                                                            $id
- * @property string                                                                                                         $name
- * @property string|null                                                                                                    $surname
- * @property string|null                                                                                                    $patronymic
- * @property string                                                                                                         $email
- * @property string|null                                                                                                    $phone
- * @property string|null                                                                                                    $bday
- * @property string|null                                                                                                    $avatar
- * @property \Illuminate\Support\Carbon|null                                                                                $email_verified_at
- * @property string                                                                                                         $password
- * @property int|null                                                                                                       $course
- * @property int                                                                                                            $role_id
- * @property int|null                                                                                                       $speciality_id
- * @property string|null                                                                                                    $remember_token
- * @property \Illuminate\Support\Carbon|null                                                                                $created_at
- * @property \Illuminate\Support\Carbon|null                                                                                $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[]                                       $clients
- * @property-read int|null                                                                                                  $clients_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null                                                                                                  $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[]                                        $tokens
- * @property-read int|null                                                                                                  $tokens_count
+ * @property int                                                        $id
+ * @property string                                                     $name
+ * @property string|null                                                $surname
+ * @property string|null                                                $patronymic
+ * @property string                                                     $email
+ * @property string|null                                                $phone
+ * @property string|null                                                $bday
+ * @property string|null                                                $avatar
+ * @property Carbon|null                                                $email_verified_at
+ * @property string                                                     $password
+ * @property int|null                                                   $course
+ * @property int                                                        $role_id
+ * @property int|null                                                   $speciality_id
+ * @property string|null                                                $remember_token
+ * @property Carbon|null                                                $created_at
+ * @property Carbon|null                                                $updated_at
+ * @property-read Collection|Client[]                                   $clients
+ * @property-read int|null                                              $clients_count
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read int|null                                              $notifications_count
+ * @property-read Collection|Token[]                                    $tokens
+ * @property-read int|null                                              $tokens_count
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()

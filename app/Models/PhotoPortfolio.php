@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\PhotoPortfolio
  *
- * @property int                             $portfolio_id
- * @property int                             $photo_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int         $portfolio_id
+ * @property int         $photo_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|PhotoPortfolio newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PhotoPortfolio newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PhotoPortfolio query()

@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Portfolio
  *
- * @property int                                                               $id
- * @property string                                                            $name
- * @property string                                                            $description
- * @property string                                                            $url
- * @property int                                                               $user_id
- * @property \Illuminate\Support\Carbon|null                                   $created_at
- * @property \Illuminate\Support\Carbon|null                                   $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photo
- * @property-read int|null                                                     $photo_count
+ * @property int                     $id
+ * @property string                  $name
+ * @property string                  $description
+ * @property string                  $url
+ * @property int                     $user_id
+ * @property Carbon|null             $created_at
+ * @property Carbon|null             $updated_at
+ * @property-read Collection|Photo[] $photo
+ * @property-read int|null           $photo_count
  * @method static \Illuminate\Database\Eloquent\Builder|Portfolio newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Portfolio newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Portfolio query()

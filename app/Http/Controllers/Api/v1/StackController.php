@@ -79,18 +79,6 @@ class StackController extends BaseController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
@@ -138,11 +126,20 @@ class StackController extends BaseController
      *
      * @param  int  $id
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        try {
+            $stack = Stack::query()->whereId($id);
+            if ($stack->user_id = User::getUserId()){
+                $result = $stack->delete();
+                return $this->sendResponse($result, 'Stack deleted.');
+            }
+            return ApiHelper::sendError('Stack not found.');
+        }catch (\Exception $e){
+            return ApiHelper::sendError($e);
+        }
     }
 
 }

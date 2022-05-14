@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Order
  *
- * @property int                             $id
- * @property string                          $date
- * @property int                             $is_check
- * @property int                             $student_id
- * @property int                             $practice_id
- * @property int                             $company_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int         $id
+ * @property string      $date
+ * @property int         $is_check
+ * @property int         $student_id
+ * @property int         $practice_id
+ * @property int         $company_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStudentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  */
 class Order extends Model
 {
@@ -39,9 +42,17 @@ class Order extends Model
             'id',
             'date',
             'is_check',
-            'user_id',
+            'student_id',
             'practice_id',
-            'organization_id',
+            'company_id',
         ];
+
+    /**
+     * The attributes that should be cast.
+     * @var array
+     */
+    protected $casts = [
+        'is_check' => 'boolean'
+    ];
 
 }
